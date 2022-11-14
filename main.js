@@ -1,32 +1,79 @@
 const main = document.querySelector('#main');
-main.innerHTML = `
-  <div id="Form-input" class= "p-3">
-    <form id="Form" class= "p-3 rounded border">
-      <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="Name" aria-describedby="nameHelp" required>
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" required>
-      </div>
-      <div class="mb-3">
-        <label for="mobileNumber" class="form-label">Mobile Number</label>
-        <input type="number" class="form-control" id="Mobile-number" required>
-      </div>
-      <button type="submit" class="btn btn-primary submit-button">Add</button>
-    </form>
-  </div>
-  `
-const formInput = document.querySelector('#Form-input');
-const addUser = document.createElement('div');
-addUser.innerHTML = `
-  <h1>Add New User</h1>
-  <button class="show-hide-button btn btn-secondary mb-3">Hide Form</button>
-  `
-formInput.prepend(addUser);
 
-const showHideButton = document.querySelector('.show-hide-button');
+const formInput = document.createElement('div');
+formInput.id = "Form-input";
+formInput.classList.add("p-3");
+main.appendChild(formInput);
+
+const form = document.createElement('form');
+form.id = "Form";
+form.classList.add("p-3", "rounded", "border");
+formInput.appendChild(form);
+
+const nameContainer = document.createElement('div');
+nameContainer.classList.add("mb-3");
+form.appendChild(nameContainer);
+
+const nameLabel = document.createElement('label');
+nameLabel.for = "name";
+nameLabel.classList.add("form-label");
+nameLabel.innerText = "Name";
+nameContainer.appendChild(nameLabel);
+
+const nameInput = document.createElement("input");
+nameInput.type = "text";
+nameInput.id = "Name";
+nameInput.classList.add("form-control");
+nameContainer.appendChild(nameInput);
+
+const emailContainer = document.createElement('div');
+emailContainer.classList.add("mb-3");
+form.appendChild(emailContainer);
+
+const emailLabel = document.createElement('label');
+emailLabel.for = "Email";
+emailLabel.classList.add("form-label")
+emailLabel.innerText = "Email";
+emailContainer.appendChild(emailLabel);
+
+const emailInput = document.createElement('input');
+emailInput.type = "email";
+emailInput.id = "Email";
+emailInput.classList.add("form-control");
+emailContainer.appendChild(emailInput);
+
+const mobileNumberContainer = document.createElement('div');
+mobileNumberContainer.classList.add("mb-3");
+form.appendChild(mobileNumberContainer);
+
+const mobileNumberLabel = document.createElement('label');
+mobileNumberLabel.for = "Mobile-number";
+mobileNumberLabel.classList.add("form-label");
+mobileNumberLabel.innerText = "Mobile Number";
+mobileNumberContainer.appendChild(mobileNumberLabel);
+
+const mobileNumberInput = document.createElement('input');
+mobileNumberInput.type = "number";
+mobileNumberInput.id = "Mobile-number";
+mobileNumberInput.classList.add("form-control");
+mobileNumberContainer.appendChild(mobileNumberInput);
+
+const submitButton = document.createElement('button');
+submitButton.type = "submit";
+submitButton.classList.add("submit-button", "btn", "btn-primary");
+submitButton.innerText = "Submit";
+form.appendChild(submitButton);
+
+const addUser = document.createElement('div');
+const addUserTitle = document.createElement('h1');
+addUserTitle.innerText = "Add New User";
+addUser.appendChild(addUserTitle);
+const showHideButton = document.createElement('button');
+showHideButton.classList.add("show-hide-button", "btn", "btn-secondary", "mb-3");
+showHideButton.innerText = "Hide Form";
+addUser.appendChild(showHideButton);
+
+formInput.prepend(addUser);
 
 if (showHideButton) {
   showHideButton.addEventListener('click', () => {
@@ -46,10 +93,6 @@ displayUsers.classList.add("p-3", "rounded", "border");
 displayUsers.innerHTML = `<h1>User List</h1>`;
 main.appendChild(displayUsers);
 
-const name = document.querySelector('#Name');
-const email = document.querySelector('#Email');
-const mobileNumber = document.querySelector('#Mobile-number');
-
 const fab = document.createElement('div');
 fab.id = ('fab');
 fab.classList.add("p-3", "rounded", "border");
@@ -67,15 +110,22 @@ document.querySelector('.submit-button').addEventListener('click', function (e) 
   userData.classList.add("d-flex", "flex-column", "p-3", "mb-3", "rounded")
   displayUser.appendChild(userData);
 
-  const userName = name.value;
-  const userEmail = email.value;
-  const userMobileNumber = mobileNumber.value;
+  const userName = nameInput.value;
+  const userEmail = emailInput.value;
+  const userMobileNumber = mobileNumberInput.value;
 
   if (userName && userEmail && userMobileNumber) {
-    userData.innerHTML = `<span calss="edit-data">${userName}</span>
-      <span calss="edit-data">${userEmail}</span>
-      <span calss="edit-data">${userMobileNumber}</span>
-      `
+    const nameData = document.createElement('span');
+    nameData.innerText = `${userName}`;
+    userData.appendChild(nameData);
+
+    const emailData = document.createElement('span');
+    emailData.innerText = `${userEmail}`;
+    userData.appendChild(emailData);
+
+    const mobileNumberData = document.createElement('span');
+    mobileNumberData.innerText = `${userMobileNumber}`;
+    userData.appendChild(mobileNumberData);
 
     const fabButton = document.createElement("button");
     fabButton.innerText = "Add To Fab";
